@@ -5,7 +5,13 @@ import org.springframework.http.HttpStatus;
 
 public class UnAuthorizedException extends GlobalException {
 
+    public static final UnAuthorizedException EXCEPTION = new UnAuthorizedException();
+
     public static final UnAuthorizedException NOT_ACCESSIBLE = new UnAuthorizedException("User Not Accessible.");
+
+    private UnAuthorizedException() {
+        super(HttpStatus.UNAUTHORIZED.value(),"UnAuthorized.");
+    }
 
     private UnAuthorizedException(String message) {
         super(HttpStatus.UNAUTHORIZED.value(), message);

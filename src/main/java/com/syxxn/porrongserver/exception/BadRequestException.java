@@ -5,6 +5,12 @@ import org.springframework.http.HttpStatus;
 
 public class BadRequestException extends GlobalException {
 
+    public static final BadRequestException EXCEPTION = new BadRequestException();
+
+    private BadRequestException() {
+        super(HttpStatus.BAD_REQUEST.value(), "Bad Request.");
+    }
+
     private BadRequestException(String message) {
         super(HttpStatus.BAD_REQUEST.value(), message);
     }
