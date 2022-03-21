@@ -10,7 +10,17 @@ public class InfoResponse {
 
     private Long id;
 
+    private KakaoAccount kakaoAccount;
+
     private properties properties;
+
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class KakaoAccount {
+        private String isEmailValid;
+        private String isEmailVerified;
+        private String email;
+    }
 
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
