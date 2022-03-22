@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Entity
 public class Letter  extends BaseIdEntity {
 
-    @Column(nullable = false, length = 20000)
+    @Column(nullable = false, length = 16000)
     private String content;
 
     @Column(nullable = false)
