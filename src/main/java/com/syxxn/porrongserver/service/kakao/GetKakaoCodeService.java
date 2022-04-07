@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class GetKakaoCodeService {
 
-    private static final String RESPONSE_TYPE = "code";
-
     private final KakaoCodeClient kakaoCodeClient;
     private final KakaoOAuthProperties kakaoOAuthProperties;
 
@@ -19,7 +17,7 @@ public class GetKakaoCodeService {
         String code = kakaoCodeClient.execute(
                 kakaoOAuthProperties.getClientId(),
                 kakaoOAuthProperties.getRedirectUrl(),
-                RESPONSE_TYPE);
+                KakaoOAuthProperties.RESPONSE_TYPE);
         return new KakaoCodeResponse(code);
     }
 
