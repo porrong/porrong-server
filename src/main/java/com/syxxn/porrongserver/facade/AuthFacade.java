@@ -4,12 +4,12 @@ import com.syxxn.porrongserver.entity.user.User;
 import com.syxxn.porrongserver.entity.user.repository.UserRepository;
 import com.syxxn.porrongserver.exception.NotFoundException;
 import com.syxxn.porrongserver.exception.UnAuthorizedException;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Component
 public class AuthFacade {
 
