@@ -4,7 +4,6 @@ import com.syxxn.porrongserver.entity.user.User;
 import com.syxxn.porrongserver.entity.user.repository.UserRepository;
 import com.syxxn.porrongserver.feign.KakaoAuthClient;
 import com.syxxn.porrongserver.feign.KakaoInfoClient;
-import com.syxxn.porrongserver.feign.dto.request.AuthRequest;
 import com.syxxn.porrongserver.feign.dto.response.InfoResponse;
 import com.syxxn.porrongserver.property.KakaoOAuthProperties;
 import com.syxxn.porrongserver.security.jwt.JwtProvider;
@@ -19,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class LoginService {
 
     private static final String BEARER = "Bearer ";
-    private static final String[] PROPERTY_KEYS = new String[]{"kakao_account.email", "profile.nickname"};
+    private static final String PROPERTY_KEYS = "[\"kakao_account.email\", \"properties.nickname\"]";
 
     private final KakaoOAuthProperties kakaoOAuthProperties;
 
@@ -42,12 +41,11 @@ public class LoginService {
 
     private String getKakaoAccessToken(String code) {
         return kakaoAuthClient.execute(
-                AuthRequest.builder()
-                        .clientId(kakaoOAuthProperties.getClientId())
-                        .redirectUri(kakaoOAuthProperties.getRedirectUrl())
-                        .clientSecret(kakaoOAuthProperties.getClientSecret())
-                        .code(code)
-                        .build()
+                KakaoOAuthProperties.GRANT_TYPE,
+                kakaoOAuthProperties.getClientId(),
+                kakaoOAuthProperties.getRedirectUrl(),
+                code,
+                kakaoOAuthProperties.getClientSecret()
         ).getAccessToken();
     }
 

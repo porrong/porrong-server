@@ -11,6 +11,6 @@ public interface KakaoInfoClient {
 
     @GetMapping
     InfoResponse execute(@RequestHeader("Authorization") String token,
-                         @RequestParam("property_keys") String[] propertyKeys);
+                         @RequestParam("property_keys") String propertyKeys);
 
 }

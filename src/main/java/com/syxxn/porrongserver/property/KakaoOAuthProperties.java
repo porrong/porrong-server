@@ -15,6 +15,8 @@ public class KakaoOAuthProperties {
 
     public static final String RESPONSE_TYPE = "code";
 
+    public static final String GRANT_TYPE = "authorization_code";
+
     public KakaoOAuthProperties(String clientId, String clientSecret, String redirectUrl) {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
