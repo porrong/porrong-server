@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsUtils;
 
 @RequiredArgsConstructor
@@ -34,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/kakao/code").permitAll()
                 .antMatchers(HttpMethod.POST, "/user").permitAll()
                 .anyRequest().authenticated()
-                .and().addFilter(new JwtFilter(jwtProvider, authenticationProvider));
+                .and().addFilterBefore(new JwtFilter(jwtProvider, authenticationProvider), UsernamePasswordAuthenticationFilter.class);
     }
 
 }
