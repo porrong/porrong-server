@@ -15,7 +15,7 @@ public class KakaoOAuthController {
     private final GetKakaoCodeService getKakaoCodeService;
 
     @GetMapping("/code")
-    public KakaoCodeResponse getKakaoCode() {
+    public String getKakaoCode() {
         return getKakaoCodeService.execute();
     }
 
