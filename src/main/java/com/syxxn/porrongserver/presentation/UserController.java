@@ -23,7 +23,7 @@ public class UserController {
 
     @PostMapping
     public TokenResponse login(@RequestBody @Valid KakaoLoginRequest request) {
-        return loginService.execute(request.getCode());
+        return loginService.execute(request);
     }
 
     @DeleteMapping

@@ -4,6 +4,7 @@ import com.syxxn.porrongserver.entity.user.User;
 import com.syxxn.porrongserver.entity.user.repository.UserRepository;
 import com.syxxn.porrongserver.feign.KakaoAuthClient;
 import com.syxxn.porrongserver.feign.KakaoInfoClient;
+import com.syxxn.porrongserver.presentation.dto.request.KakaoLoginRequest;
 import com.syxxn.porrongserver.feign.dto.response.InfoResponse;
 import com.syxxn.porrongserver.property.KakaoOAuthProperties;
 import com.syxxn.porrongserver.security.jwt.JwtProvider;
@@ -29,28 +30,28 @@ public class LoginService {
 
     private final JwtProvider jwtProvider;
 
-    public TokenResponse execute(String code) {
-        String kakaoAccessToken = getKakaoAccessToken(code);
+    public TokenResponse execute(KakaoLoginRequest request) {
+        String kakaoAccessToken = getAccessToken(request.getCode());
         InfoResponse infoResponse = getKakaoAccountInfo(kakaoAccessToken);
 
         User user = userRepository.findByEmail(infoResponse.getKakaoAccount().getEmail())
-                .orElse(saveUser(infoResponse));
+                .orElseGet(() -> saveUser(infoResponse));
 
         return jwtProvider.generateToken(user.getEmail());
     }
 
-    private String getKakaoAccessToken(String code) {
+    private String getAccessToken(String code) {
         return kakaoAuthClient.execute(
                 KakaoOAuthProperties.GRANT_TYPE,
+                code,
                 kakaoOAuthProperties.getClientId(),
                 kakaoOAuthProperties.getRedirectUrl(),
-                code,
                 kakaoOAuthProperties.getClientSecret()
         ).getAccessToken();
     }
 
-    private InfoResponse getKakaoAccountInfo(String accesstoken) {
-        String token = BEARER + accesstoken;
+    private InfoResponse getKakaoAccountInfo(String accessToken) {
+        String token = BEARER + accessToken;
         return kakaoInfoClient.execute(token, PROPERTY_KEYS);
     }
 

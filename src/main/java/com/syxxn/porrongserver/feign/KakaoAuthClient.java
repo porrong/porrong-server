@@ -10,9 +10,9 @@ public interface KakaoAuthClient {
 
     @PostMapping("/oauth/token")
     TokenResponse execute(@RequestParam("grant_type") String grantType,
+                          @RequestParam("code") String code,
                           @RequestParam("client_id") String clientId,
                           @RequestParam("redirect_uri") String redirectUri,
-                          @RequestParam("code") String code,
                           @RequestParam("client_secret") String clientSecret);
 
 }
