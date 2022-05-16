@@ -24,6 +24,12 @@ public class Letter  extends BaseIdEntity {
     @Column(nullable = false, length = 16000)
     private String content;
 
+    @Column(nullable = false, length = 30)
+    private String dear;
+
+    @Column(nullable = false, length = 45)
+    private String email;
+
     @Column(nullable = false)
     private LocalDateTime releaseDate;
 
