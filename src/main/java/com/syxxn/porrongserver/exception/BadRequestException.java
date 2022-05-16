@@ -7,6 +7,8 @@ public class BadRequestException extends GlobalException {
 
     public static final BadRequestException EXCEPTION = new BadRequestException();
 
+    public static final BadRequestException LOCKED_LETTER = new BadRequestException("Unable to open the letter.");
+
     private BadRequestException() {
         super(HttpStatus.BAD_REQUEST.value(), "Bad Request.");
     }
