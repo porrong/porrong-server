@@ -2,8 +2,10 @@ package com.syxxn.porrongserver.presentation;
 
 import com.syxxn.porrongserver.presentation.dto.request.WriteLetterRequest;
 import com.syxxn.porrongserver.presentation.dto.response.GetLetterDetailsResponse;
+import com.syxxn.porrongserver.presentation.dto.response.GetLetterListResponse;
 import com.syxxn.porrongserver.service.letter.DeleteLetterService;
 import com.syxxn.porrongserver.service.letter.GetLetterDetailsService;
+import com.syxxn.porrongserver.service.letter.GetLetterListService;
 import com.syxxn.porrongserver.service.letter.WriteLetterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -29,6 +31,8 @@ public class LetterController {
 
     private final WriteLetterService writeLetterService;
 
+    private final GetLetterListService getLetterListService;
+
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{letter_id}")
     public void deleteLetter(@PathVariable("letter_id") long letterId) {
@@ -44,6 +48,11 @@ public class LetterController {
     @PostMapping
     public void writeLetter(@RequestBody @Valid WriteLetterRequest request) {
         writeLetterService.execute(request);
+    }
+
+    @GetMapping
+    public GetLetterListResponse getLetterList() {
+        return getLetterListService.execute();
     }
 
 }
