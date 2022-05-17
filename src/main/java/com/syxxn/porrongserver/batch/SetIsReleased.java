@@ -7,7 +7,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @RequiredArgsConstructor
 @Component
@@ -18,7 +18,7 @@ public class SetIsReleased {
     @Transactional
     @Scheduled(cron = "0 0 0 * * *") //매일 00시 00분 00초에 실행
     public void setIsReleased() {
-        letterRepository.findAllByReleaseDateGreaterThanEqual(LocalDateTime.now())
+        letterRepository.findAllByReleaseDateGreaterThanEqual(LocalDate.now())
                 .forEach(Letter::isReleasedTrue);
     }
 
