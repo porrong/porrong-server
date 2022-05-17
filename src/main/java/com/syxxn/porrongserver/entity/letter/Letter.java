@@ -13,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -31,7 +32,7 @@ public class Letter  extends BaseIdEntity {
     private String email;
 
     @Column(nullable = false)
-    private LocalDateTime releaseDate;
+    private LocalDate releaseDate;
 
     @CreatedDate
     @Column(nullable = false)
@@ -44,9 +45,11 @@ public class Letter  extends BaseIdEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public static Letter createLetter(String content, LocalDateTime releaseDate) {
+    public static Letter createLetter(String content, String dear, String email, LocalDate releaseDate) {
         Letter letter = new Letter();
         letter.content = content;
+        letter.dear = dear;
+        letter.email = email;
         letter.releaseDate = releaseDate;
 
         return letter;
