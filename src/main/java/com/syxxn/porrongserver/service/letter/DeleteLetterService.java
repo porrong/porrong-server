@@ -4,6 +4,7 @@ import com.syxxn.porrongserver.entity.letter.Letter;
 import com.syxxn.porrongserver.entity.letter.repository.LetterRepository;
 import com.syxxn.porrongserver.entity.user.User;
 import com.syxxn.porrongserver.exception.BadRequestException;
+import com.syxxn.porrongserver.exception.NotFoundException;
 import com.syxxn.porrongserver.facade.AuthFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,10 +25,13 @@ public class DeleteLetterService {
         User user = authFacade.getUser();
 
         Letter letter = letterRepository.findById(letterId)
-                .filter(l -> LocalDateTime.now().isAfter(l.getReleaseDate()))
                 .orElseThrow(() -> {
-                    throw BadRequestException.LOCKED_LETTER;
+                    throw NotFoundException.LETTER_NOT_FOUND;
                 });
+
+        if (letter.getReleaseDate().isAfter(LocalDateTime.now())) {
+            throw BadRequestException.LOCKED_LETTER;
+        }
 
         letterRepository.delete(letter);
     }
