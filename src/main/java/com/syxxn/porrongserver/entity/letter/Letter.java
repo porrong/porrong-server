@@ -52,8 +52,9 @@ public class Letter  extends BaseIdEntity {
         return letter;
     }
 
-    public void isReleasedTrue() {
+    public Letter isReleasedTrue() {
         this.isReleased = true;
+        return this;
     }
 
 }
