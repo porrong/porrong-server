@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @RequiredArgsConstructor
 @Transactional
@@ -29,7 +29,7 @@ public class DeleteLetterService {
                     throw NotFoundException.LETTER_NOT_FOUND;
                 });
 
-        if (letter.getReleaseDate().isAfter(LocalDateTime.now())) {
+        if (letter.getReleaseDate().isAfter(LocalDate.now())) {
             throw BadRequestException.LOCKED_LETTER;
         }
 

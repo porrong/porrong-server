@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -29,7 +29,7 @@ public class GetLetterDetailsService {
                     throw NotFoundException.LETTER_NOT_FOUND;
                 });
 
-        if (letter.getReleaseDate().isAfter(LocalDateTime.now())) {
+        if (letter.getReleaseDate().isAfter(LocalDate.now())) {
             throw BadRequestException.LOCKED_LETTER;
         }
 
@@ -38,7 +38,7 @@ public class GetLetterDetailsService {
                 .content(letter.getContent())
                 .email(letter.getEmail())
                 .createdAt(letter.getCreatedAt().toLocalDate())
-                .releaseDate(letter.getReleaseDate().toLocalDate())
+                .releaseDate(letter.getReleaseDate())
                 .build();
     }
 
