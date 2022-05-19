@@ -21,6 +21,7 @@ public class DeleteUserService {
     public void execute() {
         User user = authFacade.getUser();
         letterRepository.deleteAllByUser(user);
+        userRepository.delete(user);
     }
 
 }
