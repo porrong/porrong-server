@@ -6,9 +6,11 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,6 +20,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "tbl_letter")
 @Entity
 public class Letter  extends BaseIdEntity {
@@ -42,22 +45,22 @@ public class Letter  extends BaseIdEntity {
     private Boolean isReleased = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    public static Letter createLetter(String content, String dear, String email, LocalDate releaseDate) {
+    public static Letter createLetter(String content, String dear, String email, LocalDate releaseDate, User user) {
         Letter letter = new Letter();
         letter.content = content;
         letter.dear = dear;
         letter.email = email;
         letter.releaseDate = releaseDate;
+        letter.user = user;
 
         return letter;
     }
 
-    public Letter isReleasedTrue() {
+    public void isReleasedTrue() {
         this.isReleased = true;
-        return this;
     }
 
 }
