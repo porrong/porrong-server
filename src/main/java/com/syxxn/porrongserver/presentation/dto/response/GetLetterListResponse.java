@@ -10,11 +10,14 @@ import java.util.List;
 @AllArgsConstructor
 public class GetLetterListResponse {
 
+    private final Integer totalElements;
+
     private final List<LetterDto> letters;
 
     @Getter
     @Builder
     public static class LetterDto {
+        private final Long id;
         private final Integer dDay;
         private final Boolean isReleased;
         private final String content;

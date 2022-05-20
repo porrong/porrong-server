@@ -30,19 +30,22 @@ public class GetLetterListService {
         List<Letter> letters = letterRepository.findAllByUser(user);
 
         return new GetLetterListResponse(
+                letters.size(),
                 letters.stream().map(
                         l -> {
                             if (!l.getIsReleased()) {
                                 int dDay = Period.between(LocalDate.now(), l.getReleaseDate()).getDays();
 
                                 return LetterDto.builder()
+                                        .id(l.getId())
                                         .content(null)
                                         .dDay(dDay)
                                         .isReleased(false)
                                         .build();
                             } else {
                                 return LetterDto.builder()
-                                        .content((l.getContent().length() > 100 ? l.getContent().substring(0, 100) : l.getContent()) + "...")
+                                        .id(l.getId())
+                                        .content((l.getContent().length() > 20 ? l.getContent().substring(0, 20) : l.getContent()) + "...")
                                         .dDay(0)
                                         .isReleased(true)
                                         .build();
