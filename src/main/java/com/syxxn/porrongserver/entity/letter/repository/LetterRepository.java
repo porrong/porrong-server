@@ -10,5 +10,5 @@ import java.util.List;
 public interface LetterRepository extends CrudRepository<Letter, Long> {
     void deleteAllByUser(User user);
     List<Letter> findAllByReleaseDateGreaterThanEqual(LocalDate now);
-    List<Letter> findAllByUser(User user);
+    List<Letter> findAllByUserOrderByCreatedAtDesc(User user);
 }

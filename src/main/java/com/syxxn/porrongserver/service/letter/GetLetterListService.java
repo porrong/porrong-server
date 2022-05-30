@@ -27,7 +27,7 @@ public class GetLetterListService {
     public GetLetterListResponse execute() {
         User user = authFacade.getUser();
 
-        List<Letter> letters = letterRepository.findAllByUser(user);
+        List<Letter> letters = letterRepository.findAllByUserOrderByCreatedAtDesc(user);
 
         return new GetLetterListResponse(
                 letters.size(),
@@ -45,7 +45,7 @@ public class GetLetterListService {
                             } else {
                                 return LetterDto.builder()
                                         .id(l.getId())
-                                        .content((l.getContent().length() > 20 ? l.getContent().substring(0, 20) : l.getContent()) + "...")
+                                        .content((l.getContent().length() > 10 ? l.getContent().substring(0, 10) : l.getContent()) + "...")
                                         .dDay(0)
                                         .isReleased(true)
                                         .build();
