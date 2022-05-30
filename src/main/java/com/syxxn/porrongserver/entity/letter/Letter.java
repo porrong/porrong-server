@@ -41,8 +41,8 @@ public class Letter  extends BaseIdEntity {
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
-    @Column(nullable = false, columnDefinition = "bit default 0")
-    private Boolean isReleased = false;
+    @Column(nullable = false)
+    private Boolean isReleased;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -55,6 +55,7 @@ public class Letter  extends BaseIdEntity {
         letter.email = email;
         letter.releaseDate = releaseDate;
         letter.user = user;
+        letter.isReleased = LocalDate.now().isAfter(releaseDate);
 
         return letter;
     }
