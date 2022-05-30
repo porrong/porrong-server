@@ -17,7 +17,7 @@ public class GlobalExceptionHandler {
     //정의된 모든 에러 처리
     @ExceptionHandler(GlobalException.class)
     public ResponseEntity<ErrorResponse> handleGlobalException(final GlobalException e) {
-        log.error(e.getCause().getMessage());
+        log.error(e.getMessage());
         return new ResponseEntity<>(new ErrorResponse(e.getStatusCode(), e.getLocalizedMessage()), HttpStatus.valueOf(e.getStatusCode()));
     }
 
