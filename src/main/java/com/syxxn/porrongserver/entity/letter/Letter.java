@@ -55,7 +55,7 @@ public class Letter  extends BaseIdEntity {
         letter.email = email;
         letter.releaseDate = releaseDate;
         letter.user = user;
-        letter.isReleased = LocalDate.now().isAfter(releaseDate);
+        letter.isReleased = !LocalDate.now().isBefore(releaseDate);
 
         return letter;
     }
