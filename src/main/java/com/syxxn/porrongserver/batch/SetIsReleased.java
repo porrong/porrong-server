@@ -16,7 +16,7 @@ public class SetIsReleased {
     private final LetterRepository letterRepository;
 
     @Transactional
-    @Scheduled(cron = "0 0 0 * * *") //매일 00시 00분 00초에 실행
+    @Scheduled(cron = "0 17 13 * * *") // 초 분 시 일 월 요일
     public void setIsReleased() {
         letterRepository.findAllByReleaseDateGreaterThanEqual(LocalDate.now())
                 .forEach(Letter::isReleasedTrue);
