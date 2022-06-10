@@ -34,7 +34,9 @@ public class GetLetterListService {
                 letters.stream().map(
                         l -> {
                             if (!l.getIsReleased()) {
-                                int dDay = Period.between(LocalDate.now(), l.getReleaseDate()).getDays();
+                                Period period = Period.between(LocalDate.now(), l.getReleaseDate());
+                                
+                                String dDay = period.getYears() + "년" + period.getMonths() + "개월" + period.getDays() + "일";
 
                                 return LetterDto.builder()
                                         .id(l.getId())
@@ -46,7 +48,7 @@ public class GetLetterListService {
                                 return LetterDto.builder()
                                         .id(l.getId())
                                         .content((l.getContent().length() > 10 ? l.getContent().substring(0, 10) : l.getContent()) + "...")
-                                        .dDay(0)
+                                        .dDay("0")
                                         .isReleased(true)
                                         .build();
                             }

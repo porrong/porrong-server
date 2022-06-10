@@ -18,7 +18,7 @@ public class GetLetterListResponse {
     @Builder
     public static class LetterDto {
         private final Long id;
-        private final Integer dDay;
+        private final String dDay;
         private final Boolean isReleased;
         private final String content;
     }
