@@ -26,7 +26,7 @@ public class WriteLetterService {
                         request.getContent(),
                         request.getDear(),
                         request.getEmail(),
-                        request.getReleasedDate(),
+                        request.getReleaseDate(),
                         user
                 )
         );

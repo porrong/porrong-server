@@ -28,6 +28,6 @@ public class WriteLetterRequest {
     private String email;
 
     @NotNull
-    private LocalDate releasedDate;
+    private LocalDate releaseDate;
 
 }
